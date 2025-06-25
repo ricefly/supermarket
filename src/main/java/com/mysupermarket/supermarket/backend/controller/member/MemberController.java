@@ -1,10 +1,10 @@
-package com.mysupermarket.supermarket.backend.controller;
+package com.mysupermarket.supermarket.backend.controller.member;
 
 import com.mysupermarket.supermarket.backend.dto.MemberRegisterRequest;
 import com.mysupermarket.supermarket.backend.dto.MemberLoginRequest;
 import com.mysupermarket.supermarket.backend.dto.LoginResponseDTO;
 import com.mysupermarket.supermarket.backend.entity.Member;
-import com.mysupermarket.supermarket.backend.service.MemberService;
+import com.mysupermarket.supermarket.backend.service.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,5 +63,14 @@ public class MemberController {
         info.put("rebateBalance", member.getRebateBalance());
         info.put("status", member.getStatus());
         return info;
+    }
+
+    @GetMapping("/orders")
+    public Object getMemberOrders(@RequestHeader("token") String token) {
+        Integer memberId = memberService.getMemberIdByToken(token);
+        if (memberId == null) {
+            return "未登录或token无效";
+        }
+        return memberService.getOrdersByMemberId(memberId);
     }
 }

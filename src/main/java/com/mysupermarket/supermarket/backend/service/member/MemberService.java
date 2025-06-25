@@ -1,10 +1,12 @@
-package com.mysupermarket.supermarket.backend.service;
+package com.mysupermarket.supermarket.backend.service.member;
 
 import com.mysupermarket.supermarket.backend.dto.MemberRegisterRequest;
 import com.mysupermarket.supermarket.backend.dto.MemberLoginRequest;
 import com.mysupermarket.supermarket.backend.dto.LoginResponseDTO;
 import com.mysupermarket.supermarket.backend.entity.Member;
 import com.mysupermarket.supermarket.backend.repository.MemberRepository;
+import com.mysupermarket.supermarket.backend.repository.OrderRepository;
+import com.mysupermarket.supermarket.backend.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MemberService {
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     // 用于保存token和会员ID的映射
     private static final ConcurrentHashMap<String, Integer> tokenMemberMap = new ConcurrentHashMap<>();
@@ -89,5 +94,9 @@ public class MemberService {
     // 根据会员ID获取会员信息
     public Member getMemberById(Integer memberId) {
         return memberRepository.findById(memberId).orElse(null);
+    }
+
+    public java.util.List<Order> getOrdersByMemberId(Integer memberId) {
+        return orderRepository.findByMemberId(memberId);
     }
 }

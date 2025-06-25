@@ -2,8 +2,8 @@
   <header class="topbar">
     <span class="logo">joja超市管理系统</span>
     <div class="right">
-      <div class="dropdown-wrapper" v-if="employeeName">
-        <span class="employee-name" @click="toggleMenu">欢迎，{{ employeeName }}
+      <div class="dropdown-wrapper" v-if="memberName">
+        <span class="member-name" @click="toggleMenu">欢迎，{{ memberName }}
           <svg style="width:16px;height:16px;vertical-align:middle;margin-left:2px;" viewBox="0 0 24 24">
             <path fill="currentColor" d="M7,10L12,15L17,10H7Z" />
           </svg>
@@ -19,9 +19,9 @@
 
 <script>
 export default {
-  name: 'TopBar',
+  name: 'MemberTopBar',
   props: {
-    employeeName: {
+    memberName: {
       type: String,
       default: ''
     }
@@ -58,7 +58,7 @@ export default {
 .topbar {
   width: 100%;
   height: 56px;
-  background: #1976D2;
+  background: #43a047;
   display: flex;
   align-items: center;
   padding-left: 32px;
@@ -81,7 +81,7 @@ export default {
   font-weight: normal;
   position: relative;
 }
-.employee-name {
+.member-name {
   margin-right: 18px;
   font-size: 16px;
   font-weight: normal;
@@ -92,7 +92,7 @@ export default {
   border-radius: 4px;
   transition: background 0.2s;
 }
-.employee-name:hover {
+.member-name:hover {
   background: rgba(255,255,255,0.08);
 }
 .dropdown-wrapper {
@@ -118,6 +118,6 @@ export default {
 }
 .dropdown-item:hover {
   background: #f5f5f5;
-  color: #1976D2;
+  color: #43a047;
 }
 </style> 

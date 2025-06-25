@@ -1,57 +1,60 @@
 <template>
-  <div class="member-info-container">
-    <h2>会员信息</h2>
-    <div v-if="memberInfo" class="info-content">
-      <div class="info-item">
-        <span class="label">手机号：</span>
-        <span>{{ memberInfo.phoneNumber }}</span>
+  <MemberLayout>
+    <div class="member-info-container">
+      <h2>会员信息</h2>
+      <div v-if="memberInfo" class="info-content">
+        <div class="info-item">
+          <span class="label">手机号：</span>
+          <span>{{ memberInfo.phoneNumber }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">姓名：</span>
+          <span>{{ memberInfo.name || '未设置' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">会员等级：</span>
+          <span>{{ memberInfo.memberLevel || '普通会员' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">钱包余额：</span>
+          <span>¥{{ memberInfo.walletBalance || '0.00' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">返利余额：</span>
+          <span>¥{{ memberInfo.rebateBalance || '0.00' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">会员状态：</span>
+          <span>{{ memberInfo.status === '活跃' ? '正常' : '已注销' }}</span>
+        </div>
       </div>
-      <div class="info-item">
-        <span class="label">姓名：</span>
-        <span>{{ memberInfo.name || '未设置' }}</span>
+      <div v-else class="loading">加载中...</div>
+      <div class="button-group">
+        <button @click="showDeactivateConfirm" class="btn deactivate-btn">注销账号</button>
       </div>
-      <div class="info-item">
-        <span class="label">会员等级：</span>
-        <span>{{ memberInfo.memberLevel || '普通会员' }}</span>
-      </div>
-      <div class="info-item">
-        <span class="label">钱包余额：</span>
-        <span>¥{{ memberInfo.walletBalance || '0.00' }}</span>
-      </div>
-      <div class="info-item">
-        <span class="label">返利余额：</span>
-        <span>¥{{ memberInfo.rebateBalance || '0.00' }}</span>
-      </div>
-      <div class="info-item">
-        <span class="label">会员状态：</span>
-        <span>{{ memberInfo.status === '活跃' ? '正常' : '已注销' }}</span>
-      </div>
-    </div>
-    <div v-else class="loading">加载中...</div>
-    <div class="button-group">
-      <button @click="logout" class="btn logout-btn">退出登录</button>
-      <button @click="showDeactivateConfirm" class="btn deactivate-btn">注销账号</button>
-    </div>
 
-    <!-- 注销确认对话框 -->
-    <div v-if="showConfirmDialog" class="confirm-dialog">
-      <div class="confirm-content">
-        <h3>确认注销账号</h3>
-        <p>注销后账号将无法登录，余额将被冻结。是否确认注销？</p>
-        <div class="confirm-buttons">
-          <button @click="cancelDeactivate" class="btn cancel-btn">取消</button>
-          <button @click="confirmDeactivate" class="btn confirm-btn">确认注销</button>
+      <!-- 注销确认对话框 -->
+      <div v-if="showConfirmDialog" class="confirm-dialog">
+        <div class="confirm-content">
+          <h3>确认注销账号</h3>
+          <p>注销后账号将无法登录，余额将被冻结。是否确认注销？</p>
+          <div class="confirm-buttons">
+            <button @click="cancelDeactivate" class="btn cancel-btn">取消</button>
+            <button @click="confirmDeactivate" class="btn confirm-btn">确认注销</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </MemberLayout>
 </template>
 
 <script>
 import axios from 'axios'
+import MemberLayout from './MemberLayout.vue'
 
 export default {
   name: 'MemberInfo',
+  components: { MemberLayout },
   data() {
     return {
       memberInfo: null,

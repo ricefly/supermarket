@@ -1,32 +1,36 @@
 <template>
-  <div class="login-container">
-    <h2>会员登录</h2>
-    <form class="form-group" @submit.prevent="login" autocomplete="on">
-      <input 
-        v-model="phoneNumber" 
-        type="tel" 
-        placeholder="请输入手机号" 
-        class="form-input" 
-        required
-        autocomplete="tel"/>
-      <input 
-        v-model="password" 
-        type="password" 
-        placeholder="请输入密码" 
-        class="form-input" 
-        required
-        autocomplete="current-password"/>
-      <button type="submit" class="login-btn">登录</button>
-      <div v-if="msg" class="message" :class="{ 'error': msg !== '登录成功' }">{{ msg }}</div>
-      <div class="register-link">
-        还没有账号？<a href="#" @click.prevent="$router.push('/register')">立即注册</a>
-      </div>
-    </form>
+  <div>
+    <MemberTopBar />
+    <div class="login-container">
+      <h2>会员登录</h2>
+      <form class="form-group" @submit.prevent="login" autocomplete="on">
+        <input 
+          v-model="phoneNumber" 
+          type="tel" 
+          placeholder="请输入手机号" 
+          class="form-input" 
+          required
+          autocomplete="tel"/>
+        <input 
+          v-model="password" 
+          type="password" 
+          placeholder="请输入密码" 
+          class="form-input" 
+          required
+          autocomplete="current-password"/>
+        <button type="submit" class="login-btn">登录</button>
+        <div v-if="msg" class="message" :class="{ 'error': msg !== '登录成功' }">{{ msg }}</div>
+        <div class="register-link">
+          还没有账号？<a href="#" @click.prevent="$router.push('/register')">立即注册</a>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import MemberTopBar from './MemberTopBar.vue'
 
 export default {
   name: 'UserLogin',
@@ -37,6 +41,7 @@ export default {
       msg: ''
     }
   },
+  components: { MemberTopBar },
   methods: {
     login() {
       this.msg = ''

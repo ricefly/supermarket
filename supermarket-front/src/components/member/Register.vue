@@ -1,51 +1,56 @@
 <template>
-  <div class="register-container">
-    <h2>会员注册</h2>
-    <form class="form-group" @submit.prevent="register">
-      <input 
-        v-model="phoneNumber" 
-        type="tel" 
-        placeholder="请输入手机号" 
-        class="form-input" 
-        required
-        pattern="^1[3-9]\d{9}$"
-        autocomplete="tel"/>
-      <input 
-        v-model="password" 
-        type="password" 
-        placeholder="请输入密码" 
-        class="form-input" 
-        required
-        minlength="6"
-        autocomplete="new-password"/>
-      <input 
-        v-model="confirmPassword" 
-        type="password" 
-        placeholder="请确认密码" 
-        class="form-input" 
-        required
-        minlength="6"
-        autocomplete="new-password"/>
-      <input 
-        v-model="name" 
-        type="text" 
-        placeholder="请输入姓名（选填）" 
-        class="form-input"
-        maxlength="50"/>
-      <button type="submit" class="register-btn">注册</button>
-      <div v-if="msg" class="message" :class="{ 'error': msg !== '注册成功' }">{{ msg }}</div>
-      <div class="login-link">
-        已有账号？<a href="#" @click.prevent="$router.push('/login')">立即登录</a>
-      </div>
-    </form>
+  <div>
+    <MemberTopBar />
+    <div class="register-container">
+      <h2>会员注册</h2>
+      <form class="form-group" @submit.prevent="register">
+        <input 
+          v-model="phoneNumber" 
+          type="tel" 
+          placeholder="请输入手机号" 
+          class="form-input" 
+          required
+          pattern="^1[3-9]\d{9}$"
+          autocomplete="tel"/>
+        <input 
+          v-model="password" 
+          type="password" 
+          placeholder="请输入密码" 
+          class="form-input" 
+          required
+          minlength="6"
+          autocomplete="new-password"/>
+        <input 
+          v-model="confirmPassword" 
+          type="password" 
+          placeholder="请确认密码" 
+          class="form-input" 
+          required
+          minlength="6"
+          autocomplete="new-password"/>
+        <input 
+          v-model="name" 
+          type="text" 
+          placeholder="请输入姓名（选填）" 
+          class="form-input"
+          maxlength="50"/>
+        <button type="submit" class="register-btn">注册</button>
+        <div v-if="msg" class="message" :class="{ 'error': msg !== '注册成功' }">{{ msg }}</div>
+        <div class="login-link">
+          已有账号？<a href="#" @click.prevent="$router.push('/login')">立即登录</a>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import MemberTopBar from './MemberTopBar.vue'
 
 export default {
   name: 'UserRegister',
+  components: { MemberTopBar },
   data() {
     return {
       phoneNumber: '',

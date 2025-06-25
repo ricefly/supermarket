@@ -1,19 +1,16 @@
 <template>
-  <div>
-    <TopBar :employeeName="employeeInfo && employeeInfo.name" />
-    <div class="inventory-content">
-      <h1>仓库库存管理</h1>
-      <p>欢迎来到仓库页面。</p>
-    </div>
-  </div>
+  <WarehouseLayout>
+    <h1>仓库库存管理</h1>
+    <p>欢迎来到仓库页面。</p>
+  </WarehouseLayout>
 </template>
 
 <script>
-import TopBar from '../TopBar.vue'
+import WarehouseLayout from './WarehouseLayout.vue'
 import axios from 'axios'
 export default {
   name: 'WarehouseInventory',
-  components: { TopBar },
+  components: { WarehouseLayout },
   data() {
     return {
       employeeInfo: null
@@ -46,9 +43,8 @@ export default {
 </script>
 
 <style scoped>
-.inventory-content {
-  max-width: 900px;
-  margin: 40px auto 0 auto;
-  padding: 20px;
+.dashboard-content {
+  flex: 1;
+  padding: 40px 40px 0 40px;
 }
 </style> 
